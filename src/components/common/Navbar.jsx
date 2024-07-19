@@ -1,11 +1,11 @@
-// Navbar.js
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
-import menuIcon from "../../assets/menu.png";
 import AppContext from "../../AppContext";
 import Sidebar from "../sidebar/Sidebar";
 import logo from "./../../assets/logo.svg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MenuIcon from "@mui/icons-material/Menu";
+import LoginForm from "../LoginForm";
 
 function Navbar() {
   const { state, setState } = useContext(AppContext);
@@ -14,25 +14,42 @@ function Navbar() {
     setState({ ...state, isSidebarOpen: !state.isSidebarOpen });
   };
 
-  return (
-    <div className="fixed top-0 w-full z-50">
-      <div className="bg-[#ddeafb] flex items-center justify-center  py-2">
-        <img
-          className="w-[1.3rem] cursor-pointer ms-3 md:hidden"
-          src={menuIcon}
-          alt="menuIcon"
-          onClick={toggleSidebar}
-        />
-        <h2 className="text-[#262626] font-semibold  text-[1rem] ">
-          Navigate your ideal career path with tailored expert advice
-        </h2>
+  const handleLoginOpen = () => {
+    setState({ ...state, isLoginFormOpen: true });
+  };
 
-        <p className="text-[#1A73E8] font-semibold ms-8">Contact Expert</p>
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.2,
+        ease: "easeOut",
+      }}
+      className="fixed top-0 w-full z-50"
+    >
+      <div className="bg-[#fefefe] md:bg-[#ddeafb] flex items-center w-full py-2">
+        <div className="cursor-pointer md:hidden ms-6">
+          <MenuIcon color="primary" onClick={toggleSidebar} />
+        </div>
+
+        <a
+          className="block md:hidden ms-[58%] mt-1"
+          href="https://home.accredian.com/"
+        >
+          <img className="w-[80px]" src={logo} alt="" />
+        </a>
+        <div className="hidden md:flex ms-[35vw]">
+          <h2 className="text-[#262626] font-semibold text-[1rem]">
+            Navigate your ideal career path with tailored expert advice
+          </h2>
+          <p className="text-[#1A73E8] font-semibold ms-8">Contact Expert</p>
+        </div>
       </div>
 
-      {/* Sidebar Overlay */}
-
-      <div className="py-5 flex items-center justify-between px-[13vw] bg-[#fefefe]">
+      <div className="py-5 hidden md:flex items-center justify-between px-[13vw] bg-[#fefefe]">
         <div className="flex items-center justify-center gap-10">
           <a href="https://home.accredian.com/">
             <img src={logo} alt="" />
@@ -42,12 +59,17 @@ function Navbar() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-8 text-[#262626] font-[500]">
-          <span>Refer & Earn</span>
+          <span className="">Refer & Earn</span>
           <span>Resources</span>
           <span>About Us</span>
-          <button className="bg-[#eaedf2] text-[#262626] rounded-lg flex items-center justify-center px-4 py-2 gap-1">
-            Login
-          </button>
+          {!state.isLoggedin && (
+            <button
+              onClick={handleLoginOpen}
+              className="bg-[#eaedf2] text-[#262626] rounded-lg flex items-center justify-center px-4 py-2 gap-1"
+            >
+              Login
+            </button>
+          )}
           <a href="https://trial.accredian.com/">
             <button className="bg-[#1A73E8] text-[#ddeafb] rounded-lg flex items-center justify-center px-4 py-2 gap-1">
               Try for free
@@ -67,7 +89,9 @@ function Navbar() {
         transition={{ duration: 0.5 }}
         onClick={() => setState({ ...state, isSidebarOpen: false })}
       />
-    </div>
+
+      <LoginForm />
+    </motion.div>
   );
 }
 
