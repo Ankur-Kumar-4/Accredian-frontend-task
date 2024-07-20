@@ -9,7 +9,6 @@ function Hero() {
   const { state, setState } = useContext(AppContext);
 
   const handleOpen = () => {
- 
     if (state.isLoggedin) {
       setState({ ...state, isModalOpen: true });
     } else {
@@ -35,7 +34,9 @@ function Hero() {
       <div className="bg-[#e6effc] text-[#262626] mt-10 md:mt-0 w-[315px] md:w-[40vw] px-6 md:px-16 py-3 rounded-3xl flex items-center justify-between text-sm md:text-lg font-[500]">
         <div className="relative inline-block">
           <span className="text-[#1A73E8]">Refer</span>
-          <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-7 top-full mt-1 text-[#1A73E8] text-3xl">.</span>
+          <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-7 top-full mt-1 text-[#1A73E8] text-3xl">
+            .
+          </span>
         </div>
         <span>Benefits</span>
         <span>FAQs</span>
@@ -48,7 +49,8 @@ function Hero() {
             Let's Learn <br />& Earn
           </h1>
           <p className="md:mt-12 mt-2 md:text-2xl font-[500]">
-            Get a chance to win <br /> up-to <span className="text-[#1A73E8]">Rs. 15,000</span>
+            Get a chance to win <br /> up-to{" "}
+            <span className="text-[#1A73E8]">Rs. 15,000</span>
           </p>
 
           <button
@@ -60,6 +62,7 @@ function Hero() {
         </div>
         <img className="md:w-[35vw] w-[80vw]" src={heroImage} alt="Hero" />
       </div>
+
       <Modal open={state.isReferFormOpen} handleClose={handleClose} />
       <LoginForm open={state.isLoginFormOpen} handleClose={handleClose} />
     </motion.div>

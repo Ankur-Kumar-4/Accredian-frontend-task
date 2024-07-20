@@ -1,10 +1,22 @@
-  import React from "react";
+  import React, { useContext } from "react";
   import howDoIReferImage from "../assets/whoDoIRefer.svg";
   import addFriend from "../assets/whoDoIRefer/add_friend.svg";
   import statement from "../assets/whoDoIRefer/statement.svg";
   import wallet from "../assets/whoDoIRefer/wallet.svg";
+  import AppContext from "../AppContext";
 
   function WhoDoIRefer() {
+    const { state, setState } = useContext(AppContext);
+  const handleOpen = () => {
+ 
+    if (state.isLoggedin) {
+      setState({ ...state, isModalOpen: true });
+    } else {
+      setState({ ...state, isLoginFormOpen: true });
+    }
+  };
+
+  
     return (
       <section className="bg-[#eef5ff] flex flex-col items-center mt-10 py-6 gap-0 justify-center h-min relative">
       <h2 className="text-lg md:text-2xl font-semibold">How Do I <span className="text-[#1A73E8]">Refer?</span></h2>
@@ -23,7 +35,9 @@
         </div>
         <img className="md:w-[70vw]" src={howDoIReferImage} alt="" />
       </div>
-      <button className="bg-[#1A73E8] text-[#ddeafb] md:-translate-y-[5vh] md:text-lg rounded-lg flex items-center justify-center px-5 md:px-8 py-2 md:py-3 gap-1 mt-5 md:mt-12">
+      <button
+      onClick={handleOpen}
+      className="bg-[#1A73E8] text-[#ddeafb] md:-translate-y-[5vh] md:text-lg rounded-lg flex items-center justify-center px-5 md:px-8 py-2 md:py-3 gap-1 mt-5 md:mt-12">
         Refer Now
       </button>
     </section>

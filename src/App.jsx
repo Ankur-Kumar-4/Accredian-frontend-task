@@ -7,11 +7,13 @@ import WhoDoIRefer from "./components/WhoDoIRefer";
 import ReferalBenifits from "./components/ReferalBenifits";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import FaqSection from "./components/FaqSection";
+import Footer from "./components/Footer";
 
 function App() {
   const [state, setState] = useState({
     isSidebarOpen: false,
-    isLoggedin: true,
+    isLoggedin: localStorage.getItem("token") ? true : false,
     isReferFormOpen: false,
     isLoginFormOpen: false,
     isRegisterFormOpen: false,
@@ -26,6 +28,8 @@ function App() {
         <ReferalBenifits />
         <LoginForm />
         <RegisterForm />
+        <FaqSection />
+        <Footer />
       </section>
     </AppContext.Provider>
   );

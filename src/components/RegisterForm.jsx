@@ -2,15 +2,18 @@ import React, { useContext, useState } from "react";
 import { Modal, Button, TextField } from "@mui/material";
 import AppContext from "./../AppContext";
 import { motion } from "framer-motion";
+import userService from "../services/userService"; 
 
 function RegisterForm() {
   const { state, setState } = useContext(AppContext);
 
   const [registerData, setRegisterData] = useState({
     name: "",
-    username: "",
+    email: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,22 +35,25 @@ function RegisterForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Registration form submitted:", registerData);
-    setState((prevState) => ({ ...prevState, isRegisterFormOpen: false }));
-    // Implement registration logic here
+    try {
+      await userService.registerUser(registerData); // Call the registerUser service
+      setState((prevState) => ({ ...prevState, isRegisterFormOpen: false }));
+    } catch (error) {
+      setError("Registration failed. Please try again.");
+    }
   };
 
   return (
     <Modal open={state.isRegisterFormOpen} onClose={handleClose}>
       <motion.div
-        initial={{ opacity: 0, y: -50 }} // Start position (invisible and above)
-        animate={{ opacity: 1, y: 0 }} // End position (fully visible and in place)
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 0.6, // Animation duration
-          delay: 0.2, // Delay before the animation starts
-          ease: "easeOut", // Easing function for smoothness
+          duration: 0.6,
+          delay: 0.2,
+          ease: "easeOut",
         }}
         className="bg-[#e6effc] w-[90vw] h-[50vh] md:w-[40vw] md:h-[60vh] py-5 px-5 md:py-0 md:px-10 rounded-2xl m-auto mt-[16vh] md:mt-[24vh] flex flex-col justify-center"
       >
@@ -63,11 +69,11 @@ function RegisterForm() {
             fullWidth
           />
           <TextField
-            name="username"
-            value={registerData.username}
+            name="email"
+            value={registerData.email}
             onChange={handleChange}
             required
-            label="User ID"
+            label="Email id"
             variant="outlined"
             fullWidth
           />
@@ -81,6 +87,7 @@ function RegisterForm() {
             variant="outlined"
             fullWidth
           />
+          {error && <p className="text-red-500">{error}</p>}
           <Button type="submit" variant="contained" color="primary">
             Register
           </Button>

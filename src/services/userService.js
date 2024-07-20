@@ -2,7 +2,8 @@ import axiosInstance from "./axiosInstance";
 
 const registerUser = async (userData) => {
   try {
-    const response = await axiosInstance.post("/regester", userData);
+    console.log(process.env.BASE_API_URL)
+    const response = await axiosInstance.post("/user/register", userData);
     localStorage.setItem("token", response.data.token);
   } catch (error) {
     console.error("Error fetching all chats:", error);
@@ -11,7 +12,7 @@ const registerUser = async (userData) => {
 };
 const loginUser = async (userData) => {
   try {
-    const response = await axiosInstance.post("/login", userData);
+    const response = await axiosInstance.post("/user/login", userData);
     localStorage.setItem("token", response.data.token);
   } catch (error) {
     console.error("Error fetching all chats:", error);

@@ -18,7 +18,6 @@ function Navbar() {
     setState({ ...state, isLoginFormOpen: true });
   };
 
-
   return (
     <motion.div
       initial={{ opacity: 0, y: -50 }}
@@ -59,9 +58,9 @@ function Navbar() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-8 text-[#262626] font-[500]">
-          <span className="">Refer & Earn</span>
-          <span>Resources</span>
-          <span>About Us</span>
+          <span className="hover:text-[#1A73E8]">Refer & Earn</span>
+          <span className="hover:text-[#1A73E8]">Resources</span>
+          <span className="hover:text-[#1A73E8]">About Us</span>
           {!state.isLoggedin && (
             <button
               onClick={handleLoginOpen}
