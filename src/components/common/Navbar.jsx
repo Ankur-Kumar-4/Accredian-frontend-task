@@ -58,9 +58,9 @@ function Navbar() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-8 text-[#262626] font-[500]">
-          <span className="hover:text-[#1A73E8]">Refer & Earn</span>
-          <span className="hover:text-[#1A73E8]">Resources</span>
-          <span className="hover:text-[#1A73E8]">About Us</span>
+          <span className="hover:text-[#1A73E8] cursor-pointer">Refer & Earn</span>
+          <span className="hover:text-[#1A73E8] cursor-pointer">Resources</span>
+          <span className="hover:text-[#1A73E8] cursor-pointer">About Us</span>
           {!state.isLoggedin && (
             <button
               onClick={handleLoginOpen}
